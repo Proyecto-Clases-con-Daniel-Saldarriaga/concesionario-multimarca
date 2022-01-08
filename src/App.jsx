@@ -4,6 +4,8 @@ import AuthLayout from "layouts/AuthLayout";
 import Index from 'pages/Admin/Index';
 import Vehiculos from 'pages/Admin/Vehiculos';
 import Clientes from 'pages/Admin/Clientes';
+import Login from "pages/login";
+import Registro from 'pages/registro'
 import {
   BrowserRouter,
   Routes,
@@ -17,8 +19,8 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<AuthLayout><div>Login</div></AuthLayout>} />
-          <Route path="/registro" element={<AuthLayout><div>Registro</div></AuthLayout>} />
+          <Route path="/login" element={<AuthLayout><div><Login/></div></AuthLayout>} />
+          <Route path="/registro" element={<AuthLayout><div><Registro/></div></AuthLayout>} />
           <Route path="/admin" element={<PrivateLayout><div><Index/></div></PrivateLayout>} />
           <Route path="/admin/clientes" element={<PrivateLayout><div><Clientes/></div></PrivateLayout>} />
           <Route path="/admin/vehiculos" element={<PrivateLayout><div><Vehiculos/></div></PrivateLayout>} />
