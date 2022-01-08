@@ -19,7 +19,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<AuthLayout><div>Login</div></AuthLayout>} />
           <Route path="/registro" element={<AuthLayout><div>Registro</div></AuthLayout>} />
-          <Route path="/admin/index" element={<PrivateLayout><div>Admin</div></PrivateLayout>} />
+          <Route path="/admin" element={<PrivateLayout><div><Index/></div></PrivateLayout>} />
           <Route path="/admin/clientes" element={<PrivateLayout><div><Clientes/></div></PrivateLayout>} />
           <Route path="/admin/vehiculos" element={<PrivateLayout><div><Vehiculos/></div></PrivateLayout>} />
           <Route path="/" element={<PublicLayout><div>Index</div></PublicLayout>} />
