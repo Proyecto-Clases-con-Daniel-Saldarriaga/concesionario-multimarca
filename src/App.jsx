@@ -6,6 +6,7 @@ import Vehiculos from 'pages/Admin/Vehiculos';
 import Clientes from 'pages/Admin/Clientes';
 import Login from "pages/login";
 import Registro from 'pages/registro'
+import Edad from 'pages/Admin/Edad'
 import {
   BrowserRouter,
   Routes,
@@ -24,6 +25,7 @@ function App() {
           <Route path="/admin" element={<PrivateLayout><div><Index/></div></PrivateLayout>} />
           <Route path="/admin/clientes" element={<PrivateLayout><div><Clientes/></div></PrivateLayout>} />
           <Route path="/admin/vehiculos" element={<PrivateLayout><div><Vehiculos/></div></PrivateLayout>} />
+          <Route path="/admin/edad" element={<PrivateLayout><div><Edad/></div></PrivateLayout>} />
           <Route path="/" element={<PublicLayout><div>Index</div></PublicLayout>} />
         </Routes>
       </BrowserRouter>
