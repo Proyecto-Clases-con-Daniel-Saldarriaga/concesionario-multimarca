@@ -20,12 +20,12 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<AuthLayout><div><Login/></div></AuthLayout>} />
-          <Route path="/registro" element={<AuthLayout><div><Registro/></div></AuthLayout>} />
-          <Route path="/admin" element={<PrivateLayout><div><Index/></div></PrivateLayout>} />
-          <Route path="/admin/clientes" element={<PrivateLayout><div><Clientes/></div></PrivateLayout>} />
-          <Route path="/admin/vehiculos" element={<PrivateLayout><div><Vehiculos/></div></PrivateLayout>} />
-          <Route path="/admin/edad" element={<PrivateLayout><div><Edad/></div></PrivateLayout>} />
+          <Route path="/login" element={<AuthLayout><Login/></AuthLayout>} />
+          <Route path="/registro" element={<AuthLayout><Registro/></AuthLayout>} />
+          <Route path="/admin" element={<PrivateLayout><Index/></PrivateLayout>} />
+          <Route path="/admin/clientes" element={<PrivateLayout><Clientes/></PrivateLayout>} />
+          <Route path="/admin/vehiculos" element={<PrivateLayout><Vehiculos/></PrivateLayout>} />
+          <Route path="/admin/edad" element={<PrivateLayout><Edad/></PrivateLayout>} />
           <Route path="/" element={<PublicLayout><div>Index</div></PublicLayout>} />
         </Routes>
       </BrowserRouter>
