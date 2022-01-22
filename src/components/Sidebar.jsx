@@ -1,11 +1,10 @@
 import React from 'react'
 import ImagenLogo from './ImagenLogo'
 import { Link } from 'react-router-dom'
-import 'styles/responsive.css'
 
 const Sidebar = () => {
     return (
-        <nav className="w-72 border border-gray-300 h-full flex flex-col bg-gray-400 p-6 sidebar">
+        <nav className="hidden md:flex md:w-72 border border-gray-300 h-full flex flex-col bg-gray-400 p-6">
             <Link to='/admin'>
             <ImagenLogo/>
             </Link>
@@ -17,6 +16,8 @@ const Sidebar = () => {
             </div>
             <button className='flex items-start'>Cerrar Sesión</button>
         </nav>
+
+
     )
 }
 

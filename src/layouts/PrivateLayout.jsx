@@ -1,12 +1,16 @@
 import React from 'react'
 import Sidebar from 'components/Sidebar'
+import SidebarResponsive from 'components/SidebarResponsive'
 
 
 const PrivateLayout = ({children}) => {
     return (
         <div className="flex w-screen h-screen">
+        <div className="flex flex-col md:flex-row flex-nowrap w-screen h-screen">
+            <SidebarResponsive/>
             <Sidebar />
-            <main className="flex w-full overflow-y-scroll items-center justify-center ">{children}</main>
+            <main className=" w-full overflow-y-scroll items-center justify-center ">{children}</main>
+        </div>
         </div>
     )
 }
