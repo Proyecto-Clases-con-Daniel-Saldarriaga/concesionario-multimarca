@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 //realizar un formulario que le pida al usuario su edad y muestre un mensaje
 //que le diga si el usuario es mayor de edad o no
@@ -115,7 +116,7 @@ const FormularioCreacionVehiculos = ({setMostrarTabla, listaVehiculos, setVehicu
 
     const form = useRef(null);
 
-    const submitForm = (e) =>{
+    const submitForm = async(e) =>{
         e.preventDefault();
         const fd = new FormData(form.current);
 
@@ -124,13 +125,29 @@ const FormularioCreacionVehiculos = ({setMostrarTabla, listaVehiculos, setVehicu
             nuevoVehiculo[key] = value    
         });
 
+        const options = {
+            method: 'POST',
+            URL: 'https://vast-waters-45728.herokuapp.com/vehicle/create',
+            headers: { 'Content-Type': 'application/json' },
+            data: { name: nuevoVehiculo.name, brand: nuevoVehiculo.brand, model: nuevoVehiculo.model },
+        };
+
+        await axios
+          .request(options)
+          .then(function (response) {
+              toast.success("Vehículo agregando con éxito")
+              console.log(response.data);
+          })
+          .catch(function (error){
+              toast.error("Error creando un vehículo")
+              console.error(error);
+          });
+
         //console.log("datos del form enviados", nuevoVehiculo);
-        setMostrarTabla(true)
+        //setMostrarTabla(true)
         //Identificar el caso de exito y mostrar un toast de exito
-        toast.success("Vehículo agregando con éxito")
-        setVehiculos([...listaVehiculos, nuevoVehiculo]);
+
         //Identificar el caso de error y mostrar un toast de error
-        toast.error("Error creando un vehículo")
         
     };
 
@@ -139,13 +156,13 @@ const FormularioCreacionVehiculos = ({setMostrarTabla, listaVehiculos, setVehicu
         <form ref={form} onSubmit={submitForm} className='flex flex-col'>
             <label className='flex flex-col' htmlFor="nombre">
                 Nombre del vehiculo
-            <input name="nombre" className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2' type="text" placeholder="Corolla" 
+            <input name="name" className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2' type="text" placeholder="Corolla" 
             required
             />
             </label>
             <label className='flex flex-col' htmlFor='marca'>
                 Marca del vehiculo
-            <select name='marca' className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2' required defaultValue={0}>
+            <select name='brand' className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2' required defaultValue={0}>
                 <option disabled value={0}>Seleccione una opción</option>
                 <option>Renault</option>
                 <option>Toyota</option>
@@ -156,7 +173,7 @@ const FormularioCreacionVehiculos = ({setMostrarTabla, listaVehiculos, setVehicu
             </label>
             <label className='flex flex-col' htmlFor="modelo">
                 Modelo del vehiculo
-            <input name="modelo" min={1992} max={2022} className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2' type="number" placeholder="2014" required/>
+            <input name="model" min={1992} max={2022} className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2' type="number" placeholder="2014" required/>
             </label>
             <button type="submit" className='col-span-2 bg-green-400 p-2 rounded-full shadow-md hover:bg-green-600 text-white'>Guardar vehiculo</button>
         </form>
