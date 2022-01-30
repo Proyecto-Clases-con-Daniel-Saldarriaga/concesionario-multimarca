@@ -2,6 +2,7 @@ import React, {useEffect, useState, useRef} from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { nanoid } from 'nanoid';
 
 //realizar un formulario que le pida al usuario su edad y muestre un mensaje
 //que le diga si el usuario es mayor de edad o no
@@ -66,7 +67,7 @@ const Vehiculos = () => {
     }, [mostrarTabla]);
     return (
         <div className='flex h-full w-full flex-col items-center justify-start p-8'>
-            <div className='flex flex-col'>
+            <div className='flex flex-col w-full'>
             <h2 className='text-3xl font-extrabold text-gray-900'>Página de administración de vehículos</h2>
             <button onClick={()=>{setMostrarTabla(!mostrarTabla)}} className={
                 `text-white bg-${colorBoton}-500 p-5 rounded-full m-6 w-28 self-end`
@@ -83,34 +84,77 @@ const Vehiculos = () => {
 };
 
 const TablaVehiculos = ({listaVehiculos}) => {
+
     useEffect(()=>{
         console.log("Este es el listado de vehiculos en el componente de tabla", listaVehiculos);
     }, [listaVehiculos]);
 
     return(
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col w-full items-center justify-center">
             <h2 className='text-2xl font-extrabold text-gray-800'>Todos los vehiculos</h2>
-            <table>
+                <table className='tabla'>
             <thead>
                 <tr>
                     <th>Nombre del vehiculo</th>
                     <th>Marca del vehiculo</th>
                     <th>Modelo del vehiculo</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 {listaVehiculos.map((vehiculo)=>{
-                    return (<tr>
-                    <td>{vehiculo.nombre}</td>
-                    <td>{vehiculo.marca}</td>
-                    <td>{vehiculo.modelo}</td>
-                </tr>)
+                    return (
+                        <FilaVehiculo key={nanoid()} vehiculo={vehiculo}/>
+                    )
                 })}
             </tbody>
-        </table>
+                </table>
         </div>
     )
 };
+
+const FilaVehiculo = ({vehiculo}) =>{
+    const [edit, setEdit] = useState(false);
+    const [infoNuevoVehiculo, setInfoNuevoVehiculo] = useState({
+        nombre: vehiculo.nombre,
+        marca: vehiculo.marca,
+        modelo: vehiculo.modelo
+    })
+
+    const actualizarVehiculo = ()=>{
+        console.log(infoNuevoVehiculo)
+    }
+    return (<tr>
+        {edit?
+        <>
+            <td>
+                <input className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2' type="text" value={infoNuevoVehiculo.nombre} onChange={e=>setInfoNuevoVehiculo({...infoNuevoVehiculo, nombre: e.target.value})}/>
+            </td>
+            <td>
+                <input className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2' type="text" value={infoNuevoVehiculo.marca} onChange={e=>setInfoNuevoVehiculo({...infoNuevoVehiculo, marca: e.target.value})}/>
+            </td>
+            <td>
+                <input className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2' type="text" value={infoNuevoVehiculo.modelo} onChange={e=>setInfoNuevoVehiculo({...infoNuevoVehiculo, modelo: e.target.value})}/>
+            </td>
+        </>
+        :
+        <>
+        <td>{vehiculo.nombre}</td>
+        <td>{vehiculo.marca}</td>
+        <td>{vehiculo.modelo}</td>
+        </>}   
+        <>
+        <td>
+            <div className='flex w-full justify-around'>
+                {edit ? (<i onClick={()=>actualizarVehiculo()} className='fas fa-check text-green-700 hover:text-green-500' />):
+                ( <i onClick={()=>setEdit(!edit)} className='fas fa-pencil-alt text-yellow-700 hover:text-yellow-500' />)
+                }
+                <i className='fas fa-trash text-red-700 hover:text-red-500' />
+            </div>
+        </td>
+        </>
+    </tr>
+    )}
 
 const FormularioCreacionVehiculos = ({setMostrarTabla, listaVehiculos, setVehiculos}) => {
 
